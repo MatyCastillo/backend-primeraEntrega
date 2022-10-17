@@ -19,15 +19,16 @@ router.get("/:pid", (req, res) => {
   });
 });
 //POST
-router.post("/", upload.single("foto"), authMiddleware, (req, res) => {
-  let file = req.file;
+router.post("/", /* upload.single("foto"), */ authMiddleware, (req, res) => {
+  // let file = req.file;
   let product = req.body;
+  console.log("producto", product);
   product.precio = parseInt(product.precio);
   product.timestamp = Date.now();
   product.stock = parseInt(product.stock);
   product.codigo = parseInt(product.codigo);
-  product.foto =
-    req.protocol + "://" + req.hostname + ":8080" + "/images/" + file.filename;
+  product.foto = product.foto;
+  // req.protocol + "://" + req.hostname + ":8080" + "/images/" + file.filename;
   contenedor.save(product).then((result) => {
     res.send(result);
     if (result.status === "success") {
@@ -38,16 +39,26 @@ router.post("/", upload.single("foto"), authMiddleware, (req, res) => {
   });
 });
 //PUT
-router.put("/:pid", upload.single("image"), authMiddleware, (req, res) => {
-  let file = req.file;
-  let product = req.body;
-  let id = parseInt(req.params.pid);
-  product.thumbnail =
-    req.protocol + "://" + req.hostname + ":8080" + "/images/" + file.filename;
-  contenedor.update(id, product).then((result) => {
-    res.send(result);
-  });
-});
+router.put(
+  "/:pid",
+  /*  upload.single("image"), */ authMiddleware,
+  (req, res) => {
+    // let file = req.file;
+    let product = req.body;
+    let id = parseInt(req.params.pid);
+    product.foto = product.foto;
+    product.timestamp = Date.now();
+    // req.protocol +
+    // "://" +
+    // req.hostname +
+    // ":8080" +
+    // "/images/" +
+    // file.filename;
+    contenedor.update(id, product).then((result) => {
+      res.send(result);
+    });
+  }
+);
 //DELETE
 router.delete("/:pid", authMiddleware, (req, res) => {
   let id = parseInt(req.params.pid);

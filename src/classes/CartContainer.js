@@ -57,13 +57,13 @@ class CartContainer {
     try {
       let data = await fs.promises.readFile(cartURL, "utf-8");
       let carts = JSON.parse(data);
-
+      console.log("productsID", productsID);
       let productsForId = await productContainer
         .getByIds(productsID)
         .then((result) => {
           return result.products;
         });
-
+      console.log("products provide", productsForId);
       if (!carts.some((cart) => cart.id === cartId))
         return {
           status: "error",

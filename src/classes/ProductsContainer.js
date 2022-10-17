@@ -8,7 +8,6 @@ class ProductContainer {
     try {
       let data = await fs.promises.readFile(productsURL, "utf-8");
       let products = JSON.parse(data);
-      console.log(products);
       if (
         products.some(
           (prod) =>
@@ -24,7 +23,7 @@ class ProductContainer {
           nombre: product.nombre,
           descripcion: product.descripcion,
           codigo: product.codigo,
-          precio: product.price,
+          precio: product.precio,
           foto: product.foto,
           stock: product.stock,
         };
@@ -55,7 +54,7 @@ class ProductContainer {
           nombre: product.nombre,
           descripcion: product.descripcion,
           codigo: product.codigo,
-          precio: product.price,
+          precio: product.precio,
           foto: product.foto,
           stock: product.stock,
         },
